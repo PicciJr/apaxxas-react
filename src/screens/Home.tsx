@@ -1,7 +1,5 @@
 import { Flex, Box } from "@chakra-ui/react";
-import AButton from "../components/AButton";
 import ATextInput from "../components/ATextInput";
-import { ColorTone, Color } from "../types/icolor";
 
 export default function HomeScreen() {
   return (
