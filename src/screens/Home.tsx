@@ -1,5 +1,5 @@
-import { Flex, Box } from "@chakra-ui/react";
-import ATextInput from "../components/ATextInput";
+import { Flex, Box } from '@chakra-ui/react';
+import ATextInput from '../components/ATextInput';
 
 export default function HomeScreen() {
   return (

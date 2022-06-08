@@ -1,23 +1,23 @@
-import React from "react";
+import React from 'react';
 
-import DepositContainer from "../components/DepositCard";
-import { IUser } from "../types/iuser";
+import DepositContainer from '../components/DepositCard';
+import { IUser } from '../types/iuser';
 
-const DepositsSummary = () => {
+function DepositsSummary() {
   const users: IUser[] = [
     {
-      name: "Bego Q.",
-      alias: "@Begoquereda",
-      id: "1",
+      name: 'Bego Q.',
+      alias: '@Begoquereda',
+      id: '1',
     },
     {
-      name: "Andres P.",
-      alias: "@PicciJr",
-      id: "2",
+      name: 'Andres P.',
+      alias: '@PicciJr',
+      id: '2',
     },
   ];
   return (
-    <div className={`px-8`}>
+    <div className="px-8">
       <DepositContainer
         id="1ABCDEF1"
         title="deposito-conejitos"
@@ -25,6 +25,6 @@ const DepositsSummary = () => {
       />
     </div>
   );
-};
+}
 
 export default DepositsSummary;
