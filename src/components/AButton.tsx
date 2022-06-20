@@ -2,8 +2,8 @@ import { Button } from '@chakra-ui/react';
 
 import IColor from '../types/icolor';
 
-function AButton({ color, tone }: IColor) {
-  return <Button>Click here</Button>;
+function AButton({ color, tone, text = 'Click here' }: IColor | any) {
+  return <Button>{text}</Button>;
 }
 
 export default AButton;

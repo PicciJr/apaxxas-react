@@ -4,7 +4,7 @@ import React from 'react';
 function ASelectInputGroup() {
   return (
     <div>
-      <Select placeholder="Select option">
+      <Select placeholder="Selecciona a una persona">
         <option value="@PicciJr">@PicciJr</option>
         <option value="@BegoQ">@BegoQ</option>
       </Select>

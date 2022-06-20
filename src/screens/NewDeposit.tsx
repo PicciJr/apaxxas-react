@@ -12,16 +12,22 @@ export default function NewDepositScreen() {
         <p className="mb-2">Nombre deposito</p>
         <ATextInput placeholder="#deposito-conejos" width="150" />
         <Flex direction="row" alignItems="center">
-          <ASelectInputGroup />
+          <Box my={2}>
+            <ASelectInputGroup />
+          </Box>
           <p className="pl-4">le debe a</p>
         </Flex>
         <ASelectInputGroup />
-        <p className="my-2">la cantidad de</p>
-        <ATextInput placeholder="$" width="100" />
-        <p className="my-2">por concepto de</p>
-        <ATextInput placeholder="Compras mercadona..." />
+        <Flex my={2}>
+          <p className="pr-2 my-2">la cantidad de</p>
+          <ATextInput placeholder="$" htmlSize={4} />
+        </Flex>
+        <Flex my={2}>
+          <p className="pr-2 my-2">por concepto de</p>
+          <ATextInput placeholder="Compras mercadona..." />
+        </Flex>
         <div className="w-40 my-2">
-          <AButton color={Color.purple} tone={ColorTone.dark} />
+          <AButton color={Color.purple} tone={ColorTone.dark} text="Crear depósito" />
         </div>
       </Flex>
     </div>
