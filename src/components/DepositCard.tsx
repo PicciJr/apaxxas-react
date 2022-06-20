@@ -1,8 +1,8 @@
-import { Flex } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 
 import { Color, ColorTone } from '../types/icolor';
 import { IDeposit } from '../types/ideposit';
+import { FaHandshake, FaUserAlt, FaPlusCircle } from 'react-icons/fa';
 
 function DepositCard({ title = 'deposito-prueba', users = [] }: IDeposit) {
   const [depositBalance, setDepositBalance] = useState(20.5);
@@ -14,35 +14,27 @@ function DepositCard({ title = 'deposito-prueba', users = [] }: IDeposit) {
   });
 
   return (
-    <div className={`rounded-md bg-${Color.purple}-${ColorTone.light} w-full`}>
-      <p className="font-bold text-center text-white">
-        #
-        {title}
-      </p>
+    <div className={`rounded-md bg-apxpurple-100 w-full text-white`}>
+      <p className="font-bold text-center">#{title}</p>
       <div className="px-4 mb-4">
-        {/* <FlatList
-          data={users}
-          renderItem={({ item }) => (
-            <p className={`my-2 text-white`}>{item.alias}</p>
-          )}
-          keyExtractor={(item) => item.id}
-        /> */}
-        <div className="flex-row mt-2">
-          <p className="text-white">Balance actual:</p>
-          <p className={`${depositTextStyle} font-bold px-1`}>
-            {depositBalance}
-            $
-          </p>
+        {users.map((user) => {
+          return (
+            <li className="my-2 text-white list-none" key={user.id}>
+              {user.alias}
+            </li>
+          );
+        })}
+        <div className="flex mt-2 space-x-2">
+          <p>Balance actual:</p>
+          <p className={`${depositTextStyle} font-bold px-1`}>{depositBalance}$</p>
         </div>
       </div>
-      <div
-        className={`w-full bg-${Color.purple}-${ColorTone.dark} rounded-b-md py-2`}
-      >
-        {/* <Flex direction="row" justifyContent="space-evenly">
-          <AntDesign name="pluscircle" size={24} color="white" />
-          <FontAwesome name="handshake-o" size={24} color="white" />
-          <FontAwesome name="user" size={24} color="white" />
-        </Flex> */}
+      <div className={`w-full bg-apxpurple-500 rounded-b-md py-2`}>
+        <div className="flex justify-between px-4">
+          <FaPlusCircle size={24} color="white" />
+          <FaHandshake size={24} color="white" />
+          <FaUserAlt size={24} color="white" />
+        </div>
       </div>
     </div>
   );

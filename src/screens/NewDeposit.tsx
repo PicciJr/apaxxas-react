@@ -1,4 +1,4 @@
-import { Flex, Box } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 
 import AButton from '../components/AButton';
 import ASelectInputGroup from '../components/ASelectInputGroup';
@@ -8,28 +8,28 @@ import { Color, ColorTone } from '../types/icolor';
 export default function NewDepositScreen() {
   return (
     <div className="px-4 py-2">
-      <Flex direction="column">
+      <div className="flex flex-col">
         <p className="mb-2">Nombre deposito</p>
         <ATextInput placeholder="#deposito-conejos" width="150" />
-        <Flex direction="row" alignItems="center">
+        <div className="flex items-center">
           <Box my={2}>
             <ASelectInputGroup />
           </Box>
           <p className="pl-4">le debe a</p>
-        </Flex>
+        </div>
         <ASelectInputGroup />
-        <Flex my={2}>
+        <div className="flex space-y-1">
           <p className="pr-2 my-2">la cantidad de</p>
           <ATextInput placeholder="$" htmlSize={4} />
-        </Flex>
-        <Flex my={2}>
+        </div>
+        <div className="flex space-y-1">
           <p className="pr-2 my-2">por concepto de</p>
           <ATextInput placeholder="Compras mercadona..." />
-        </Flex>
+        </div>
         <div className="w-40 my-2">
           <AButton color={Color.purple} tone={ColorTone.dark} text="Crear depósito" />
         </div>
-      </Flex>
+      </div>
     </div>
   );
 }
