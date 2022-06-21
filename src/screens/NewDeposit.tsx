@@ -7,7 +7,7 @@ import { Color, ColorTone } from '../types/icolor';
 
 export default function NewDepositScreen() {
   return (
-    <div className="px-4 py-2">
+    <div className="h-screen px-4 py-2 overflow-scroll">
       <div className="flex flex-col">
         <p className="mb-2">Nombre deposito</p>
         <ATextInput placeholder="#deposito-conejos" width="150" />

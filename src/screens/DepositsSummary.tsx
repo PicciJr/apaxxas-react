@@ -17,12 +17,8 @@ function DepositsSummary() {
     },
   ];
   return (
-    <div className="px-8">
-      <DepositContainer
-        id="1ABCDEF1"
-        title="deposito-conejitos"
-        users={users}
-      />
+    <div className="h-screen px-8 overflow-scroll">
+      <DepositContainer id="1ABCDEF1" title="deposito-conejitos" users={users} />
     </div>
   );
 }
