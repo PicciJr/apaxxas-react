@@ -3,7 +3,7 @@ import { Box } from '@chakra-ui/react';
 import AButton from '../components/AButton';
 import ASelectInputGroup from '../components/ASelectInputGroup';
 import ATextInput from '../components/ATextInput';
-import { Color, ColorTone } from '../types/icolor';
+import { Color, ColorTone } from '../../types/icolor';
 
 export default function NewDepositScreen() {
   return (
@@ -27,7 +27,11 @@ export default function NewDepositScreen() {
           <ATextInput placeholder="Compras mercadona..." />
         </div>
         <div className="w-40 my-2">
-          <AButton color={Color.purple} tone={ColorTone.dark} text="Crear depósito" />
+          <AButton
+            color={Color.purple}
+            tone={ColorTone.dark}
+            text="Crear depósito"
+          />
         </div>
       </div>
     </div>

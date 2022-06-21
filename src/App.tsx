@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import HomeScreen from './screens/Home';
-import NewDepositScreen from './screens/NewDeposit';
-import DepositsSummary from './screens/DepositsSummary';
-import BottomTabsNavigator from './components/BottomTabsNavigator';
+import HomeScreen from './ui/screens/Home';
+import NewDepositScreen from './ui/screens/NewDeposit';
+import DepositsSummary from './ui/screens/DepositsSummary';
+import BottomTabsNavigator from './ui/components/BottomTabsNavigator';
 
 function App() {
   return (
