@@ -22,7 +22,6 @@ function DepositsSummary() {
     <div className="h-screen px-8 overflow-scroll">
       <DepositCard
         id="random"
-        userId="random"
         title="deposito-conejitos"
         members={users}
         expenses={[]}
