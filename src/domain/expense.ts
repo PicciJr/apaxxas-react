@@ -6,4 +6,5 @@ export type Expense = {
   total: number;
   debtors: User[];
   payer: User;
+  isSettled: boolean;
 };

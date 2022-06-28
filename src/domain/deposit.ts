@@ -30,11 +30,26 @@ export function removeMember(deposit: Deposit, user: User): Deposit {
   };
 }
 
-export function createDeposit(members: User[], deposit: Deposit): Deposit {
+export function settleAllExpenses(deposit: Deposit): Deposit {
   return {
-    id: deposit.id,
-    expenses: deposit.expenses,
+    ...deposit,
+    expenses: deposit.expenses.map(({ isSettled, ...rest }) => ({
+      isSettled: true,
+      ...rest,
+    })),
+  };
+}
+
+export function createDeposit(
+  members: User[],
+  expenses: Expense[],
+  depositId: string,
+  title: string
+): Deposit {
+  return {
+    id: depositId,
+    expenses,
     members,
-    title: deposit.title,
+    title,
   };
 }

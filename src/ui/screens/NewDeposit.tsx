@@ -4,8 +4,30 @@ import AButton from '../components/AButton';
 import ASelectInputGroup from '../components/ASelectInputGroup';
 import ATextInput from '../components/ATextInput';
 import { Color, ColorTone } from '../../types/icolor';
+import { useCreateDeposit } from '../../application/createDeposit';
+import { User } from '../../domain/user';
 
 export default function NewDepositScreen() {
+  const createNewDeposit = async () => {
+    const { newDeposit } = useCreateDeposit();
+    // TODO: datos dinamicos
+    const users: User[] = [
+      {
+        name: 'Bego Q.',
+        alias: '@Begoquereda',
+        id: '1',
+        deposits: [],
+      },
+      {
+        name: 'Andres P.',
+        alias: '@PicciJr',
+        id: '2',
+        deposits: [],
+      },
+    ];
+    await newDeposit(users, [], 'deposito-conejitos');
+  };
+
   return (
     <div className="h-screen px-4 py-2 overflow-scroll">
       <div className="flex flex-col">
@@ -28,9 +50,9 @@ export default function NewDepositScreen() {
         </div>
         <div className="w-40 my-2">
           <AButton
-            color={Color.purple}
-            tone={ColorTone.dark}
+            color="purple"
             text="Crear depósito"
+            clickHandler={createNewDeposit}
           />
         </div>
       </div>
