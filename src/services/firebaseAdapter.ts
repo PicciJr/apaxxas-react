@@ -12,6 +12,8 @@ import {
   doc,
   setDoc,
   getDoc,
+  query,
+  where,
 } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
@@ -40,11 +42,20 @@ export function useStorage(): StorageService {
     async createDocument(document, collection) {
       await setDoc(doc(db, collection, document.title), document);
     },
-    getDocument(id: string, collection: string) {
+    getDocument<T>(id: string, collection: string): Promise<T> {
       return new Promise(() => {});
     },
-    getDocuments(user: User, collection: string) {
-      return new Promise(() => {});
+    async getDocuments<T>(user: User, dbCollection: string): Promise<T[]> {
+      const q = query(
+        collection(db, dbCollection),
+        where('members', 'array-contains', user)
+      );
+      const querySnapshot = await getDocs(q);
+      const docs = Array<T>();
+      querySnapshot.forEach((doc) => {
+        docs.push(doc.data() as T);
+      });
+      return docs;
     },
     updateDocument(document: any, collection: string) {
       return new Promise(() => {});
