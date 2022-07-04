@@ -2,8 +2,9 @@ import React from 'react';
 
 import DepositCard from '../components/DepositCard';
 import { User } from '../../domain/user';
+import { Deposit } from '../../domain/deposit';
 import { useGetDeposits } from '../../application/getDeposits';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function DepositsSummary() {
   // TODO: datos dinamicos
@@ -13,38 +14,39 @@ function DepositsSummary() {
     id: '2',
     deposits: [],
   };
+
+  const [deposits, setDeposits] = useState<Deposit[]>([]);
   const getDeposits = async () => {
     const { getDeposits } = useGetDeposits();
     const deposits = await getDeposits(user);
+    if (!deposits) return [];
     return deposits;
   };
 
   useEffect(() => {
-    // TODO: pasar datos a componentes
-    getDeposits().then((doc) => console.log(doc));
-  });
-  const users: User[] = [
-    {
-      name: 'Bego Q.',
-      alias: '@Begoquereda',
-      id: '1',
-      deposits: [],
-    },
-    {
-      name: 'Andres P.',
-      alias: '@PicciJr',
-      id: '2',
-      deposits: [],
-    },
-  ];
+    getDeposits()
+      .then((deposits) => setDeposits(deposits))
+      .catch((err) => {
+        console.log('ERROR useEffect getDeposits');
+      });
+  }, []);
   return (
     <div className="h-screen px-8 overflow-scroll">
-      <DepositCard
-        id="random"
-        title="deposito-conejitos"
-        members={users}
-        expenses={[]}
-      />
+      {deposits.length ? (
+        <ul>
+          {deposits.map((deposit) => (
+            <DepositCard
+              id={deposit.id}
+              title={deposit.title}
+              members={deposit.members}
+              expenses={deposit.expenses}
+              key={deposit.id}
+            />
+          ))}
+        </ul>
+      ) : (
+        <div>Obteniendo depositos...</div>
+      )}
     </div>
   );
 }
