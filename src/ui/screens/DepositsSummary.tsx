@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import DepositCard from '../components/DepositCard';
 import { User } from '../../domain/user';
 import { Deposit } from '../../domain/deposit';
 import { useGetDeposits } from '../../application/getDeposits';
-import { useEffect, useState } from 'react';
 
 function DepositsSummary() {
   // TODO: datos dinamicos
@@ -27,7 +26,7 @@ function DepositsSummary() {
     getDeposits()
       .then((deposits) => setDeposits(deposits))
       .catch((err) => {
-        console.log('ERROR useEffect getDeposits');
+        console.log('ERROR useEffect getDeposits', err);
       });
   }, []);
   return (
