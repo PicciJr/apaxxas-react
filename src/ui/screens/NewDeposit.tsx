@@ -29,8 +29,7 @@ export default function NewDepositScreen() {
   // New deposit data
   const [depositPayer, setDepositPayer] = useState<User | null>(null);
   const [depositDebtor, setDepositDebtor] = useState<User | null>(null);
-  // const [depositExpense, setDepositExpense] = useState<Expense | null>();
-  const [expenseAmout, setExpenseAmount] = useState(0.0);
+  const [expenseAmount, setExpenseAmount] = useState(0.0);
   const [expenseSubject, setExpenseSubject] = useState('');
   const [depositTitle, setDepositTitle] = useState<string>('');
 
@@ -46,7 +45,7 @@ export default function NewDepositScreen() {
           payer: depositPayer,
           isSettled: false,
           subject: expenseSubject,
-          total: expenseAmout,
+          total: expenseAmount,
         });
         if (expense) {
           expenses.push(expense);

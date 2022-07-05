@@ -9,7 +9,7 @@ export function useCreateExpense() {
       const id = uuidGenerator.generateUuid();
       const expense = createExpense(
         id,
-        total,
+        Number(total),
         debtors,
         payer,
         isSettled,
