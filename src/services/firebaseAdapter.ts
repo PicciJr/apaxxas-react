@@ -39,8 +39,8 @@ export enum Collections {
 
 export function useStorage(): StorageService {
   return {
-    async createDocument(document, collection) {
-      await setDoc(doc(db, collection, document.title), document);
+    async createDocument(document, documentTitle = 'untitled', collection) {
+      await setDoc(doc(db, collection, documentTitle), document);
     },
     getDocument<T>(id: string, collection: string): Promise<T> {
       return new Promise(() => {});
@@ -58,6 +58,7 @@ export function useStorage(): StorageService {
       return docs;
     },
     updateDocument(document: any, collection: string) {
+      // TODO
       return new Promise(() => {});
     },
   };

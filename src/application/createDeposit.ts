@@ -15,7 +15,7 @@ export function useCreateDeposit() {
       const id = uuidGenerator.generateUuid();
       const deposit = createDeposit(members, expenses, id, title);
       const { createDocument } = useStorage();
-      await createDocument(deposit, Collections.DEPOSITS);
+      await createDocument(deposit, deposit.title, Collections.DEPOSITS);
     } catch (err) {
       console.log('ERROR createDeposit', err);
     }

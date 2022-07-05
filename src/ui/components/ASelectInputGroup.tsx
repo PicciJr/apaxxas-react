@@ -1,12 +1,20 @@
 import { Select } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 
-function ASelectInputGroup() {
+function ASelectInputGroup({ options, onSelectHandler }) {
+  const [value, setValue] = useState('');
+  const selectHandler = (event) => {
+    setValue(event.target.value);
+    onSelectHandler(event.target.value);
+  };
   return (
     <div>
-      <Select placeholder="Selecciona a una persona">
-        <option value="@PicciJr">@PicciJr</option>
-        <option value="@BegoQ">@BegoQ</option>
+      <Select placeholder="Selecciona a una persona" onChange={selectHandler}>
+        {options.map((option) => (
+          <option value={option} key={option}>
+            {option}
+          </option>
+        ))}
       </Select>
     </div>
   );
