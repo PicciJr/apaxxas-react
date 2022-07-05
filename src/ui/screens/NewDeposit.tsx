@@ -85,7 +85,7 @@ export default function NewDepositScreen() {
           <p className="pr-2 my-2">la cantidad de</p>
           <ATextInput
             placeholder="$"
-            htmlSize={4}
+            htmlSize={8}
             onInputHandler={setExpenseAmount}
           />
         </div>

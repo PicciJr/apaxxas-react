@@ -2,9 +2,7 @@ import { Select } from '@chakra-ui/react';
 import React, { useState } from 'react';
 
 function ASelectInputGroup({ options, onSelectHandler }) {
-  const [value, setValue] = useState('');
   const selectHandler = (event) => {
-    setValue(event.target.value);
     onSelectHandler(event.target.value);
   };
   return (

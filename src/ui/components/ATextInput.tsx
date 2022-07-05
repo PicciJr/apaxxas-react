@@ -11,7 +11,7 @@ function ATextInput({
   const [value, setValue] = useState('');
   const handleInput = (event) => {
     setValue(event?.target.value);
-    onInputHandler(value);
+    onInputHandler(event?.target.value);
   };
   return (
     <div>
