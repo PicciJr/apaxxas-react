@@ -1,43 +1,34 @@
 import { Box } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import AButton from '../components/AButton';
 import ASelectInputGroup from '../components/ASelectInputGroup';
 import ATextInput from '../components/ATextInput';
 import { useCreateDeposit } from '../../application/createDeposit';
+import { useGetUsers } from '../../application/getUsers';
 import { User } from '../../domain/user';
 import { Expense } from '../../domain/expense';
 import { useCreateExpense } from '../../application/createExpense';
 
 export default function NewDepositScreen() {
-  // TODO: datos dinamicos de usuarios, obtener de alguna collection
-  const users: User[] = [
-    {
-      name: 'Bego Q.',
-      alias: '@Begoquereda',
-      id: '1',
-      deposits: [],
-    },
-    {
-      name: 'Andres P.',
-      alias: '@PicciJr',
-      id: '2',
-      deposits: [],
-    },
-  ];
-
   // New deposit data
+  const [users, setUsers] = useState<User[] | null>(null);
   const [depositPayer, setDepositPayer] = useState<User | null>(null);
   const [depositDebtor, setDepositDebtor] = useState<User | null>(null);
   const [expenseAmount, setExpenseAmount] = useState(0.0);
   const [expenseSubject, setExpenseSubject] = useState('');
   const [depositTitle, setDepositTitle] = useState<string>('');
 
+  useEffect(() => {
+    // Get users from DB
+    const { getUsers } = useGetUsers();
+    getUsers().then((users) => {
+      if (users) setUsers(users);
+    });
+  });
+
   const createNewDeposit = async () => {
-    // await newDeposit(users, [], 'deposito-conejitos');
     if (depositPayer && depositDebtor) {
-      // TODO: obtener los usuarios de la BBDD de una collection, con el objeto entero
-      // A partir de ahi la query de resumen deberia matchear
       const members: User[] = [depositPayer, depositDebtor];
       const expenses: Expense[] = [];
       const { newExpense } = useCreateExpense();
@@ -60,6 +51,14 @@ export default function NewDepositScreen() {
     }
   };
 
+  const handleDepositDebtorSelected = (debtor) => {
+    setDepositDebtor(users?.find((user) => user.name === debtor) || null);
+  };
+
+  const handleDepositPayerSelected = (payer) => {
+    setDepositPayer(users?.find((user) => user.name === payer) || null);
+  };
+
   return (
     <div className="h-screen px-4 py-2 overflow-scroll">
       <div className="flex flex-col">
@@ -71,17 +70,21 @@ export default function NewDepositScreen() {
         />
         <div className="flex items-center">
           <Box my={2}>
-            <ASelectInputGroup
-              options={users.map((user) => user.name)}
-              onSelectHandler={setDepositDebtor}
-            />
+            {users && (
+              <ASelectInputGroup
+                options={users.map((user) => user.name)}
+                onSelectHandler={handleDepositDebtorSelected}
+              />
+            )}
           </Box>
           <p className="pl-4">le debe a</p>
         </div>
-        <ASelectInputGroup
-          options={users.map((user) => user.name)}
-          onSelectHandler={setDepositPayer}
-        />
+        {users && (
+          <ASelectInputGroup
+            options={users.map((user) => user.name)}
+            onSelectHandler={handleDepositPayerSelected}
+          />
+        )}
         <div className="flex space-y-1">
           <p className="pr-2 my-2">la cantidad de</p>
           <ATextInput
