@@ -36,6 +36,8 @@ export default function NewDepositScreen() {
   const createNewDeposit = async () => {
     // await newDeposit(users, [], 'deposito-conejitos');
     if (depositPayer && depositDebtor) {
+      // TODO: obtener los usuarios de la BBDD de una collection, con el objeto entero
+      // A partir de ahi la query de resumen deberia matchear
       const members: User[] = [depositPayer, depositDebtor];
       const expenses: Expense[] = [];
       const { newExpense } = useCreateExpense();

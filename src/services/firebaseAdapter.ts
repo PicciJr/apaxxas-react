@@ -1,6 +1,7 @@
 import { StorageService } from '../application/ports';
 import { Deposit } from '../domain/deposit';
 import { User } from '../domain/user';
+import { Expense } from '../domain/expense';
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
@@ -39,27 +40,39 @@ export enum Collections {
 
 export function useStorage(): StorageService {
   return {
-    async createDocument(document, documentTitle = 'untitled', collection) {
-      await setDoc(doc(db, collection, documentTitle), document);
+    async insertDeposit(deposit: Deposit) {
+      await setDoc(doc(db, Collections.DEPOSITS, deposit.title), deposit);
     },
-    getDocument<T>(id: string, collection: string): Promise<T> {
+    getDepositById(id: string): Promise<Deposit> {
+      // TODO
       return new Promise(() => {});
     },
-    async getDocuments<T>(user: User, dbCollection: string): Promise<T[]> {
+    async getDepositsByUser(user: User): Promise<Deposit[]> {
       const q = query(
-        collection(db, dbCollection),
+        collection(db, Collections.DEPOSITS),
         where('members', 'array-contains', user)
       );
       const querySnapshot = await getDocs(q);
-      const docs = Array<T>();
+      const docs = Array<Deposit>();
       querySnapshot.forEach((doc) => {
-        docs.push(doc.data() as T);
+        docs.push(doc.data() as Deposit);
       });
       return docs;
     },
-    updateDocument(document: any, collection: string) {
+    updateDeposit(deposit: Deposit) {
       // TODO
       return new Promise(() => {});
+    },
+    async insertExpense(expense: Expense) {
+      await setDoc(doc(db, Collections.EXPENSES, expense.id), expense);
+    },
+    async findUsers() {
+      const querySnapshot = await getDocs(collection(db, Collections.USERS));
+      const docs = Array<User>();
+      querySnapshot.forEach((doc) => {
+        docs.push(doc.data() as User);
+      });
+      return docs;
     },
   };
 }

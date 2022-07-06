@@ -1,14 +1,14 @@
 import { User } from '../domain/user';
+import { Deposit } from '../domain/deposit';
+import { Expense } from '../domain/expense';
 
 export interface StorageService {
-  getDocuments<T>(user: User, collection: string): Promise<T[]>;
-  getDocument<T>(id: string, collection: string): Promise<T>;
-  updateDocument(document: any, collection: string): void;
-  createDocument(
-    document: any,
-    documentTitle: string,
-    collection: string
-  ): void;
+  getDepositsByUser(user: User): Promise<Deposit[]>;
+  getDepositById(id: string): Promise<Deposit>;
+  updateDeposit(deposit: Deposit): void;
+  insertDeposit(deposit: Deposit): void;
+  insertExpense(expense: Expense): void;
+  findUsers(): Promise<User[]>;
 }
 
 export interface UuidService {

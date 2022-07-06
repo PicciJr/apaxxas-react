@@ -1,6 +1,6 @@
 import { createExpense } from '../domain/expense';
 import { useUuidGenerator } from '../services/uuidGenerator';
-import { useStorage, Collections } from '../services/firebaseAdapter';
+import { useStorage } from '../services/firebaseAdapter';
 
 export function useCreateExpense() {
   async function newExpense({ total, debtors, payer, isSettled, subject }) {
@@ -15,8 +15,8 @@ export function useCreateExpense() {
         isSettled,
         subject
       );
-      const { createDocument } = useStorage();
-      await createDocument(expense, expense.id, Collections.EXPENSES);
+      const { insertExpense } = useStorage();
+      await insertExpense(expense);
       return expense;
     } catch (err) {
       console.log('ERROR createExpense', err);
