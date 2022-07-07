@@ -4,20 +4,16 @@ import DepositCard from '../components/DepositCard';
 import { User } from '../../domain/user';
 import { Deposit } from '../../domain/deposit';
 import { useGetDeposits } from '../../application/getDeposits';
+import { useGlobalContext } from '../../services/globalContext';
 
 function DepositsSummary() {
-  // TODO: datos dinamicos
-  const user: User = {
-    name: 'Andres P.',
-    alias: '@PicciJr',
-    id: '2',
-    deposits: [],
-  };
+  // Get user from Context API
+  const { user: loggedInUser } = useGlobalContext();
 
   const [deposits, setDeposits] = useState<Deposit[]>([]);
   const getDeposits = async () => {
     const { getDeposits } = useGetDeposits();
-    const deposits = await getDeposits(user);
+    const deposits = await getDeposits(loggedInUser);
     if (!deposits) return [];
     return deposits;
   };

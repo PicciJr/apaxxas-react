@@ -16,7 +16,7 @@ function DepositCard({
 
   return (
     <div className={`rounded-md bg-apxpurple-100 w-full text-white`}>
-      <p className="font-bold text-center">#{title}</p>
+      <p className="font-bold text-center"># {title}</p>
       <div className="px-4 mb-4">
         {expenses.length ? (
           <>
