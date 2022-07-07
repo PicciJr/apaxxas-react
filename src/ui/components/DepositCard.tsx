@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import { FaHandshake, FaUserAlt, FaPlusCircle } from 'react-icons/fa';
 import { Deposit } from '../../domain/deposit';
-import { Color, ColorTone } from '../../types/icolor';
+import { useGlobalContext } from '../../services/globalContext';
+import { calculateTotalBalance } from '../../domain/deposit';
 
 function DepositCard({
   title = 'deposito-prueba',
@@ -10,9 +11,12 @@ function DepositCard({
   id,
   expenses = [],
 }: Deposit) {
-  // TODO: calcular el balance de los depositos una vez tengo sus datos
-  const [depositBalance, setDepositBalance] = useState(20.5);
-  const [depositTextStyle, setDepositTextStyle] = useState('');
+  const { user } = useGlobalContext();
+
+  const depositBalance = calculateTotalBalance(
+    { title, members, id, expenses },
+    user
+  );
 
   return (
     <div className={`rounded-md bg-apxpurple-100 w-full text-white`}>
@@ -20,16 +24,25 @@ function DepositCard({
       <div className="px-4 mb-4">
         {expenses.length ? (
           <>
-            {members.map((user) => {
-              return (
-                <li className="my-2 text-white list-none" key={user.id}>
-                  {user.alias}
-                </li>
-              );
+            {expenses.map((expense) => {
+              return expense.debtors.map((debtor) => {
+                return (
+                  debtor.id !== user.id && (
+                    <li className="my-2 text-white list-none" key={debtor.id}>
+                      <span className="font-bold">{debtor.alias}</span> me debe{' '}
+                      {expense.total}$
+                    </li>
+                  )
+                );
+              });
             })}
             <div className="flex mt-2 space-x-2">
               <p>Balance actual:</p>
-              <p className={`${depositTextStyle} font-bold px-1`}>
+              <p
+                className={`${
+                  (depositBalance > 0 && 'text-apxgreen-500') ||
+                  (depositBalance < 0 && 'text-apxred-500')
+                } font-bold px-1`}>
                 {depositBalance}$
               </p>
             </div>

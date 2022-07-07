@@ -40,6 +40,27 @@ export function settleAllExpenses(deposit: Deposit): Deposit {
   };
 }
 
+export function calculateTotalBalance(
+  deposit: Deposit,
+  loggedInUser: User
+): number {
+  // TODO: un deposito debe poder tener varios deudores
+  // con distintas cantidades de gastos para cada deudor
+  return deposit.expenses.reduce((acc, currentExpense) => {
+    if (
+      !currentExpense.isSettled &&
+      currentExpense.payer.id === loggedInUser.id
+    )
+      return acc + currentExpense.total;
+    if (
+      !currentExpense.isSettled &&
+      currentExpense.payer.id !== loggedInUser.id
+    )
+      return acc - currentExpense.total;
+    return acc;
+  }, 0.0);
+}
+
 export function createDeposit(
   members: User[],
   expenses: Expense[],
