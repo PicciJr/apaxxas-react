@@ -19,12 +19,12 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyDYmAW_Tjy8FhIR3I6Y4Zhce2sQtGS2Nnc',
-  authDomain: 'apaxxas.firebaseapp.com',
-  projectId: 'apaxxas',
-  storageBucket: 'apaxxas.appspot.com',
-  messagingSenderId: '603077638946',
-  appId: '1:603077638946:web:995ac3689b068e7659837b',
+  apiKey: 'AIzaSyAXYIZc9Hc3ObbvsLdZzBZPLxuTnuF3Vnc',
+  authDomain: 'apaxxas-v2.firebaseapp.com',
+  projectId: 'apaxxas-v2',
+  storageBucket: 'apaxxas-v2.appspot.com',
+  messagingSenderId: '934835627511',
+  appId: '1:934835627511:web:99f58cac72c1522ce5faf2',
 };
 
 // Initialize Firebase

@@ -25,7 +25,7 @@ export default function NewDepositScreen() {
     getUsers().then((users) => {
       if (users) setUsers(users);
     });
-  });
+  }, []);
 
   const createNewDeposit = async () => {
     if (depositPayer && depositDebtor) {
