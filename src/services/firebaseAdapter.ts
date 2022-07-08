@@ -63,9 +63,10 @@ export function useStorage(): StorageService {
       });
       return docs;
     },
-    updateDeposit(deposit: Deposit) {
-      // TODO
-      return new Promise(() => {});
+    async updateDeposit(deposit: Deposit) {
+      await setDoc(doc(db, Collections.DEPOSITS, deposit.title), {
+        ...deposit,
+      });
     },
     async insertExpense(expense: Expense) {
       await setDoc(doc(db, Collections.EXPENSES, expense.id), expense);

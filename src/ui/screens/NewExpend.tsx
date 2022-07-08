@@ -7,8 +7,13 @@ import { Deposit } from '../../domain/deposit';
 import { useGetDeposit } from '../../application/getDeposit';
 import { useGlobalContext } from '../../services/globalContext';
 import { useParams } from 'react-router-dom';
+import { useUpdateDeposit } from '../../application/updateDeposit';
+import { Expense } from '../../domain/expense';
+import { useCreateExpense } from '../../application/createExpense';
+import { useNavigate } from 'react-router-dom';
 
 function NewExpend() {
+  const navigate = useNavigate();
   const { user: loggedInUser } = useGlobalContext();
   const [deposit, setDeposit] = useState<Deposit | null>();
   const [cost, setCost] = useState(0.0);
@@ -26,10 +31,27 @@ function NewExpend() {
   };
 
   const addNewExpenseToDeposit = async () => {
-    // TODO
-    // crear nuevo gasto
-    // update expenses del deposito
-    // volver al resumen de depositos
+    const { updateDeposit } = useUpdateDeposit();
+    const { newExpense } = useCreateExpense();
+    try {
+      if (!deposit) return;
+      const expenseToAdd = await newExpense({
+        total: cost,
+        subject,
+        payer,
+        debtors: [debtor],
+        isSettled: false,
+      });
+      if (!expenseToAdd) return;
+      const updatedDeposit: Deposit = {
+        ...deposit,
+        expenses: [...deposit.expenses, expenseToAdd],
+      };
+      await updateDeposit(updatedDeposit);
+      navigate('/resumen');
+    } catch (err) {
+      console.log('ERROR updateDeposit', err);
+    }
   };
 
   useEffect(() => {
