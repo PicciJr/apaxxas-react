@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import DepositCard from '../components/DepositCard';
 import { User } from '../../domain/user';
+import { Link } from 'react-router-dom';
 import { Deposit } from '../../domain/deposit';
 import { useGetDeposits } from '../../application/getDeposits';
 import { useGlobalContext } from '../../services/globalContext';
@@ -30,13 +31,14 @@ function DepositsSummary() {
       {deposits.length ? (
         <ul>
           {deposits.map((deposit) => (
-            <DepositCard
-              id={deposit.id}
-              title={deposit.title}
-              members={deposit.members}
-              expenses={deposit.expenses}
-              key={deposit.id}
-            />
+            <Link to={`/deposito/${deposit.id}`} key={deposit.id}>
+              <DepositCard
+                id={deposit.id}
+                title={deposit.title}
+                members={deposit.members}
+                expenses={deposit.expenses}
+              />
+            </Link>
           ))}
         </ul>
       ) : (

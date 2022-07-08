@@ -43,9 +43,13 @@ export function useStorage(): StorageService {
     async insertDeposit(deposit: Deposit) {
       await setDoc(doc(db, Collections.DEPOSITS, deposit.title), deposit);
     },
-    getDepositById(id: string): Promise<Deposit> {
-      // TODO
-      return new Promise(() => {});
+    async getDepositById(id: string): Promise<Deposit> {
+      const q = query(
+        collection(db, Collections.DEPOSITS),
+        where('id', '==', id)
+      );
+      const querySnapshot = await getDocs(q);
+      return querySnapshot.docs[0].data() as Deposit;
     },
     async getDepositsByUser(user: User): Promise<Deposit[]> {
       const q = query(
