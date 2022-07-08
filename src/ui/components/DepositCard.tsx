@@ -4,6 +4,7 @@ import { FaHandshake, FaUserAlt, FaPlusCircle } from 'react-icons/fa';
 import { Deposit } from '../../domain/deposit';
 import { useGlobalContext } from '../../services/globalContext';
 import { calculateTotalBalance } from '../../domain/deposit';
+import { Link } from 'react-router-dom';
 
 function DepositCard({
   title = 'deposito-prueba',
@@ -55,7 +56,9 @@ function DepositCard({
       </div>
       <div className={`w-full bg-apxpurple-500 rounded-b-md py-2`}>
         <div className="flex justify-between px-4">
-          <FaPlusCircle size={24} color="white" />
+          <Link to={`/nuevo-gasto/${id}`}>
+            <FaPlusCircle size={24} color="white" />
+          </Link>
           <FaHandshake size={24} color="white" />
           <FaUserAlt size={24} color="white" />
         </div>
