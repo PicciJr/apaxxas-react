@@ -30,6 +30,32 @@ export function removeMember(deposit: Deposit, user: User): Deposit {
   };
 }
 
+export function settleExpense(
+  deposit: Deposit,
+  expenseToSettle: Expense
+): Deposit {
+  return {
+    ...deposit,
+    expenses: deposit.expenses.map((expense) => {
+      if (expenseToSettle.id === expense.id) expense.isSettled = true;
+      return expense;
+    }),
+  };
+}
+
+export function unsettleExpense(
+  deposit: Deposit,
+  expenseToSettle: Expense
+): Deposit {
+  return {
+    ...deposit,
+    expenses: deposit.expenses.map((expense) => {
+      if (expenseToSettle.id === expense.id) expense.isSettled = false;
+      return expense;
+    }),
+  };
+}
+
 export function settleAllExpenses(deposit: Deposit): Deposit {
   return {
     ...deposit,

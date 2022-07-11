@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { Stack } from '@chakra-ui/react';
 import { Deposit } from '../../domain/deposit';
+import { Expense } from '../../domain/expense';
 import { useGetDeposit } from '../../application/getDeposit';
 import { useParams } from 'react-router-dom';
 import { useGlobalContext } from '../../services/globalContext';
+import { useUpdateExpense } from '../../application/updateExpense';
+import { useUpdateDeposit } from '../../application/updateDeposit';
+import ACheckbox from '../components/ACheckbox';
 
 function DepositDetail() {
   const { user: loggedInUser } = useGlobalContext();
@@ -17,6 +22,20 @@ function DepositDetail() {
     });
   }, []);
 
+  const handleExpenseChecked = async (item: Expense, isChecked) => {
+    if (!deposit) return;
+    try {
+      item.isSettled = isChecked;
+      const { updateExpenseStatus } = useUpdateExpense();
+      const updatedDeposit = updateExpenseStatus(deposit, item);
+      const { updateDeposit } = useUpdateDeposit();
+      if (!updatedDeposit) return;
+      await updateDeposit(updatedDeposit);
+    } catch (err) {
+      console.log('ERROR handleExpenseChecked', err);
+    }
+  };
+
   return (
     <div className="h-screen px-4 py-2 overflow-scroll">
       <div className="w-full text-white rounded-md bg-apxpurple-100">
@@ -27,29 +46,45 @@ function DepositDetail() {
                 return expense.debtors.map((debtor) => {
                   if (debtor.id !== loggedInUser.id)
                     return (
-                      <li>
-                        <span className="font-bold">{debtor.alias}</span> me
-                        debe {expense.total}$
-                        <ul className="px-8 list-disc">
+                      <Stack className="mb-4" key={expense.id}>
+                        <ACheckbox
+                          item={expense}
+                          handleCheck={handleExpenseChecked}>
                           <li>
-                            <span className="italic">{expense.subject}</span>:{' '}
-                            {expense.total}$
+                            <span className="font-bold">{debtor.alias}</span> me
+                            debe {expense.total}$
+                            <ul className="px-8 list-disc">
+                              <li>
+                                <span className="italic">
+                                  {expense.subject}
+                                </span>
+                                : {expense.total}$
+                              </li>
+                            </ul>
                           </li>
-                        </ul>
-                      </li>
+                        </ACheckbox>
+                      </Stack>
                     );
                   return (
-                    <li className="my-2 text-white list-none" key={debtor.id}>
-                      <span className="font-bold">{debtor.alias} (Yo)</span>{' '}
-                      debe {expense.total}$ a{' '}
-                      <span className="font-bold">{expense.payer.alias}</span>
-                      <ul className="px-8 list-disc">
+                    <Stack className="mb-4" key={debtor.id}>
+                      <ACheckbox
+                        item={expense}
+                        handleCheck={handleExpenseChecked}>
                         <li>
-                          <span className="italic">{expense.subject}</span>:{' '}
-                          {expense.total}$
+                          <span className="font-bold">{debtor.alias} (Yo)</span>{' '}
+                          debe {expense.total}$ a{' '}
+                          <span className="font-bold">
+                            {expense.payer.alias}
+                          </span>
+                          <ul className="px-8 list-disc">
+                            <li>
+                              <span className="italic">{expense.subject}</span>:{' '}
+                              {expense.total}$
+                            </li>
+                          </ul>
                         </li>
-                      </ul>
-                    </li>
+                      </ACheckbox>
+                    </Stack>
                   );
                 });
               })}
