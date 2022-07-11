@@ -27,17 +27,23 @@ function DepositCard({
           <>
             {expenses.map((expense) => {
               return expense.debtors.map((debtor) => {
-                return (
-                  debtor.id !== user.id && (
+                if (debtor.id !== user.id)
+                  return (
                     <li className="my-2 text-white list-none" key={debtor.id}>
                       <span className="font-bold">{debtor.alias}</span> me debe{' '}
                       {expense.total}$
                     </li>
-                  )
+                  );
+                return (
+                  <li className="my-2 text-white list-none" key={debtor.id}>
+                    <span className="font-bold">{debtor.alias} (Yo)</span> debe{' '}
+                    {expense.total}$ a{' '}
+                    <span className="font-bold">{expense.payer.alias}</span>
+                  </li>
                 );
               });
             })}
-            <div className="flex mt-2 space-x-2">
+            <div className="flex mt-8 space-x-2">
               <p>Balance actual:</p>
               <p
                 className={`${

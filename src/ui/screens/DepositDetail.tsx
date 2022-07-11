@@ -25,8 +25,8 @@ function DepositDetail() {
             <>
               {deposit.expenses.map((expense) => {
                 return expense.debtors.map((debtor) => {
-                  return (
-                    debtor.id !== loggedInUser.id && (
+                  if (debtor.id !== loggedInUser.id)
+                    return (
                       <li>
                         <span className="font-bold">{debtor.alias}</span> me
                         debe {expense.total}$
@@ -37,7 +37,19 @@ function DepositDetail() {
                           </li>
                         </ul>
                       </li>
-                    )
+                    );
+                  return (
+                    <li className="my-2 text-white list-none" key={debtor.id}>
+                      <span className="font-bold">{debtor.alias} (Yo)</span>{' '}
+                      debe {expense.total}$ a{' '}
+                      <span className="font-bold">{expense.payer.alias}</span>
+                      <ul className="px-8 list-disc">
+                        <li>
+                          <span className="italic">{expense.subject}</span>:{' '}
+                          {expense.total}$
+                        </li>
+                      </ul>
+                    </li>
                   );
                 });
               })}
