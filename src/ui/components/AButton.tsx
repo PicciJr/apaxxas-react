@@ -2,9 +2,13 @@ import { Button } from '@chakra-ui/react';
 
 import IColor from '../../types/icolor';
 
-function AButton({ color, text, clickHandler, size }: any) {
+function AButton({ color, text, clickHandler, size, variant }: any) {
   return (
-    <Button colorScheme={color} onClick={clickHandler} size={size}>
+    <Button
+      colorScheme={color}
+      onClick={clickHandler}
+      size={size}
+      variant={variant}>
       {text}
     </Button>
   );

@@ -54,10 +54,12 @@ export default function HomeScreen() {
         clickHandler={handleUserLogin}
       />
       <Box mb={4}></Box>
+      <hr className="mb-8" />
       <AButton
         text="Iniciar sesión con Google"
         color="purple"
         clickHandler={handleGoogleLogin}
+        variant="outline"
       />
     </div>
   );
