@@ -1,4 +1,4 @@
-import { StorageService } from '../application/ports';
+import { AuthService, StorageService } from '../application/ports';
 import { Deposit } from '../domain/deposit';
 import { User } from '../domain/user';
 import { Expense } from '../domain/expense';
@@ -16,6 +16,7 @@ import {
   query,
   where,
 } from 'firebase/firestore';
+import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -78,6 +79,25 @@ export function useStorage(): StorageService {
         docs.push(doc.data() as User);
       });
       return docs;
+    },
+  };
+}
+
+export function useAuth(): AuthService {
+  return {
+    async login(email, password): Promise<User> {
+      const auth = getAuth();
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      const user = response.user;
+      return {
+        id: user?.providerData?.[0]?.uid ?? 'unknown ID',
+        alias: user?.providerData?.[0]?.email ?? 'unknown email',
+        name: user?.providerData?.[0]?.displayName ?? 'unknown name',
+        deposits: [],
+      };
+    },
+    logOut() {
+      // TODO
     },
   };
 }

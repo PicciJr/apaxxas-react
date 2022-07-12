@@ -14,3 +14,8 @@ export interface StorageService {
 export interface UuidService {
   generateUuid(): string;
 }
+
+export interface AuthService {
+  login(email: string, password: string): Promise<User>;
+  logOut(): void;
+}

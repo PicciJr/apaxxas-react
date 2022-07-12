@@ -7,6 +7,7 @@ function ATextInput({
   size = 'md',
   htmlSize = 0,
   onInputHandler,
+  type = 'text',
 }) {
   const [value, setValue] = useState('');
   const handleInput = (event) => {
@@ -22,6 +23,7 @@ function ATextInput({
         htmlSize={htmlSize}
         onChange={handleInput}
         value={value}
+        type={type}
       />
     </div>
   );
