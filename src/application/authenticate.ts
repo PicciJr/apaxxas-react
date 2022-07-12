@@ -5,10 +5,21 @@ export function useAuthenticate() {
     try {
       const { login } = useAuth();
       const user = await login(email, password);
+      // TODO: create cookie
       return user;
     } catch (err) {
       console.log('ERROR login user', err);
     }
   }
-  return { login };
+  async function googleLogin() {
+    try {
+      const { googleSignIn } = useAuth();
+      const user = await googleSignIn();
+      // TODO: create cookie
+      return user;
+    } catch (err) {
+      console.log('ERROR google login', err);
+    }
+  }
+  return { login, googleLogin };
 }

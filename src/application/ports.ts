@@ -17,5 +17,6 @@ export interface UuidService {
 
 export interface AuthService {
   login(email: string, password: string): Promise<User>;
+  googleSignIn(): Promise<User>;
   logOut(): void;
 }

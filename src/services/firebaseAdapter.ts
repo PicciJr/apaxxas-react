@@ -16,7 +16,13 @@ import {
   query,
   where,
 } from 'firebase/firestore';
-import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -92,6 +98,18 @@ export function useAuth(): AuthService {
       return {
         id: user?.providerData?.[0]?.uid ?? 'unknown ID',
         alias: user?.providerData?.[0]?.email ?? 'unknown email',
+        name: user?.providerData?.[0]?.displayName ?? 'unknown name',
+        deposits: [],
+      };
+    },
+    async googleSignIn(): Promise<User> {
+      const provider = new GoogleAuthProvider();
+      const auth = getAuth();
+      const response = await signInWithPopup(auth, provider);
+      const user = response.user;
+      return {
+        alias: user?.providerData?.[0]?.email ?? 'unknown name',
+        id: user?.providerData?.[0]?.uid ?? 'unknown ID',
         name: user?.providerData?.[0]?.displayName ?? 'unknown name',
         deposits: [],
       };
