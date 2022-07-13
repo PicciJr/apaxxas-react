@@ -6,12 +6,14 @@ import { useAuthenticate } from '../../application/authenticate';
 import { NotFoundError } from '../../domain/Errors/NotFoundError';
 import { useGlobalContext } from '../../services/globalContext';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 export default function HomeScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { user, updateUser } = useGlobalContext();
   const navigate = useNavigate();
+  const [cookies, setCookie] = useCookies(['user']);
 
   useEffect(() => {
     if (user) navigate('/resumen');
@@ -23,6 +25,8 @@ export default function HomeScreen() {
       const user = await login(email, password);
       updateUser(user);
       navigate('/resumen');
+      // TODO: cookie deberia ser un random ID
+      setCookie('user', user?.id, { path: '/' });
     } catch (err) {
       new NotFoundError('User not found', err);
       console.log('ERROR user login', err);
@@ -34,6 +38,8 @@ export default function HomeScreen() {
     const user = await googleLogin();
     updateUser(user);
     navigate('/resumen');
+    // TODO: cookie deberia ser un random ID
+    setCookie('user', user?.id, { path: '/' });
   };
 
   return (
