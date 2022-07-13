@@ -41,6 +41,7 @@ function DepositDetail() {
       <div className="w-full text-white rounded-md bg-apxpurple-100">
         {deposit && (
           <ul className="px-2 py-4">
+            <p className="mb-4 font-bold text-center">#{deposit.title}</p>
             <>
               {deposit.expenses.map((expense) => {
                 return expense.debtors.map((debtor) => {

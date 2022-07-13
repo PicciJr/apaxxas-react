@@ -75,12 +75,12 @@ export function calculateTotalBalance(
   return deposit.expenses.reduce((acc, currentExpense) => {
     if (
       !currentExpense.isSettled &&
-      currentExpense.payer.id === loggedInUser.id
+      currentExpense.payer.email === loggedInUser.email
     )
       return acc + currentExpense.total;
     if (
       !currentExpense.isSettled &&
-      currentExpense.payer.id !== loggedInUser.id
+      currentExpense.payer.email !== loggedInUser.email
     )
       return acc - currentExpense.total;
     return acc;

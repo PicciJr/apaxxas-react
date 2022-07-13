@@ -48,7 +48,15 @@ export enum Collections {
 export function useStorage(): StorageService {
   return {
     async insertDeposit(deposit: Deposit) {
-      await setDoc(doc(db, Collections.DEPOSITS, deposit.title), deposit);
+      const formattedDeposit = {
+        ...deposit,
+        // members_emails: useful field for firebase to use on queries
+        members_emails: deposit.members.map((member) => member.email),
+      };
+      await setDoc(
+        doc(db, Collections.DEPOSITS, deposit.title),
+        formattedDeposit
+      );
     },
     async getDepositById(id: string): Promise<Deposit> {
       const q = query(
@@ -61,7 +69,7 @@ export function useStorage(): StorageService {
     async getDepositsByUser(user: User): Promise<Deposit[]> {
       const q = query(
         collection(db, Collections.DEPOSITS),
-        where('members', 'array-contains', user)
+        where('members_emails', 'array-contains', user.email)
       );
       const querySnapshot = await getDocs(q);
       const docs = Array<Deposit>();
@@ -96,10 +104,11 @@ export function useAuth(): AuthService {
       const response = await signInWithEmailAndPassword(auth, email, password);
       const user = response.user;
       return {
-        id: user?.providerData?.[0]?.uid ?? 'unknown ID',
+        id: user?.uid ?? 'unknown ID',
         alias: user?.providerData?.[0]?.email ?? 'unknown email',
         name: user?.providerData?.[0]?.displayName ?? 'unknown name',
         deposits: [],
+        email: user?.providerData?.[0]?.email ?? 'unknown email',
       };
     },
     async googleSignIn(): Promise<User> {
@@ -109,9 +118,10 @@ export function useAuth(): AuthService {
       const user = response.user;
       return {
         alias: user?.providerData?.[0]?.email ?? 'unknown name',
-        id: user?.providerData?.[0]?.uid ?? 'unknown ID',
+        id: user?.uid ?? 'unknown ID',
         name: user?.providerData?.[0]?.displayName ?? 'unknown name',
         deposits: [],
+        email: user?.providerData?.[0]?.email ?? 'unknown name',
       };
     },
     logOut() {

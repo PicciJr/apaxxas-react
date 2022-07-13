@@ -9,6 +9,7 @@ import { useGetUsers } from '../../application/getUsers';
 import { User } from '../../domain/user';
 import { Expense } from '../../domain/expense';
 import { useCreateExpense } from '../../application/createExpense';
+import { useNavigate } from 'react-router-dom';
 
 export default function NewDepositScreen() {
   // New deposit data
@@ -18,6 +19,7 @@ export default function NewDepositScreen() {
   const [expenseAmount, setExpenseAmount] = useState(0.0);
   const [expenseSubject, setExpenseSubject] = useState('');
   const [depositTitle, setDepositTitle] = useState<string>('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Get users from DB
@@ -44,6 +46,7 @@ export default function NewDepositScreen() {
           expenses.push(expense);
           const { newDeposit } = useCreateDeposit();
           await newDeposit(members, expenses, depositTitle);
+          navigate('/resumen');
         }
       } catch (err) {
         console.log('ERROR ui createNewDeposit', err);

@@ -5,4 +5,5 @@ export type User = {
   deposits?: Deposit[] | [];
   name: string;
   alias: string;
+  email: string;
 };

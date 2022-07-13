@@ -21,13 +21,13 @@ function DepositCard({
 
   return (
     <div className={`rounded-md bg-apxpurple-100 w-full text-white`}>
-      <p className="font-bold text-center"># {title}</p>
+      <p className="font-bold text-center">#{title}</p>
       <div className="px-4 mb-4">
         {expenses.length ? (
           <>
             {expenses.map((expense) => {
               return expense.debtors.map((debtor) => {
-                if (debtor.id !== user.id)
+                if (debtor.email !== user.email)
                   return (
                     <li
                       className={`my-2 text-white list-none ${
