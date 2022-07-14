@@ -9,7 +9,7 @@ export function useGetDeposits() {
       const deposits = await getDepositsByUser(user);
       return deposits;
     } catch (err) {
-      console.log('ERROR getDeposits', err);
+      console.error('ERROR getDeposits', err);
     }
   }
 

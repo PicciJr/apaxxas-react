@@ -17,7 +17,7 @@ export function useCreateDeposit() {
       const { insertDeposit } = useStorage();
       await insertDeposit(deposit);
     } catch (err) {
-      console.log('ERROR createDeposit', err);
+      console.error('ERROR createDeposit', err);
     }
   }
   return { newDeposit };

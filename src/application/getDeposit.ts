@@ -7,7 +7,7 @@ export function useGetDeposit() {
       const deposit = await getDepositById(id);
       return deposit;
     } catch (err) {
-      console.log('ERROR getDeposit by ID', err);
+      console.error('ERROR getDeposit by ID', err);
     }
   }
 

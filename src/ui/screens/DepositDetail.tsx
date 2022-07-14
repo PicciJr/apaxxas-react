@@ -32,7 +32,7 @@ function DepositDetail() {
       if (!updatedDeposit) return;
       await updateDeposit(updatedDeposit);
     } catch (err) {
-      console.log('ERROR handleExpenseChecked', err);
+      console.error('ERROR handleExpenseChecked', err);
     }
   };
 

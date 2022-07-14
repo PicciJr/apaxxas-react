@@ -50,7 +50,7 @@ function NewExpend() {
       await updateDeposit(updatedDeposit);
       navigate('/resumen');
     } catch (err) {
-      console.log('ERROR updateDeposit', err);
+      console.error('ERROR updateDeposit', err);
     }
   };
 

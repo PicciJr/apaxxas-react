@@ -7,7 +7,7 @@ export function useAuthenticate() {
       const user = await login(email, password);
       return user;
     } catch (err) {
-      console.log('ERROR login user', err);
+      console.error('ERROR login user', err);
     }
   }
   async function googleLogin() {
@@ -16,7 +16,7 @@ export function useAuthenticate() {
       const user = await googleSignIn();
       return user;
     } catch (err) {
-      console.log('ERROR google login', err);
+      console.error('ERROR google login', err);
     }
   }
   return { login, googleLogin };

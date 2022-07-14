@@ -24,7 +24,7 @@ function DepositsSummary() {
     getDeposits()
       .then((deposits) => setDeposits(deposits))
       .catch((err) => {
-        console.log('ERROR useEffect getDeposits', err);
+        console.error('ERROR useEffect getDeposits', err);
       });
   }, [loggedInUser]);
   return (

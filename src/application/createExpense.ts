@@ -19,7 +19,7 @@ export function useCreateExpense() {
       await insertExpense(expense);
       return expense;
     } catch (err) {
-      console.log('ERROR createExpense', err);
+      console.error('ERROR createExpense', err);
     }
   }
   return { newExpense };

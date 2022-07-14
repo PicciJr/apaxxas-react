@@ -25,7 +25,7 @@ export default function HomeScreen() {
       navigate('/resumen');
     } catch (err) {
       new NotFoundError('User not found', err);
-      console.log('ERROR user login', err);
+      console.error('ERROR user login', err);
     }
   };
 

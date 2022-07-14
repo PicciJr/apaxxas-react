@@ -7,7 +7,7 @@ export function useUpdateDeposit() {
       const { updateDeposit } = useStorage();
       await updateDeposit(deposit);
     } catch (err) {
-      console.log('ERROR updateDeposit', err);
+      console.error('ERROR updateDeposit', err);
     }
   }
   return { updateDeposit };

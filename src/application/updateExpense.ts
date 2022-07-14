@@ -12,7 +12,7 @@ export function useUpdateExpense() {
         ? settleExpense(deposit, expense)
         : unsettleExpense(deposit, expense);
     } catch (err) {
-      console.log('ERROR updateExpense', err);
+      console.error('ERROR updateExpense', err);
     }
   }
   return { updateExpenseStatus };

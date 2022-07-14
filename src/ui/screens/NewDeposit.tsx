@@ -49,7 +49,7 @@ export default function NewDepositScreen() {
           navigate('/resumen');
         }
       } catch (err) {
-        console.log('ERROR ui createNewDeposit', err);
+        console.error('ERROR ui createNewDeposit', err);
       }
     }
   };

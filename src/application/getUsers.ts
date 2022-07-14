@@ -7,7 +7,7 @@ export function useGetUsers() {
       const users = await findUsers();
       return users;
     } catch (err) {
-      console.log('ERROR getUsers', err);
+      console.error('ERROR getUsers', err);
     }
   }
 
