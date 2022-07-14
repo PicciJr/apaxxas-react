@@ -22,6 +22,7 @@ import {
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
+  onAuthStateChanged,
 } from 'firebase/auth';
 
 // Your web app's Firebase configuration
@@ -50,7 +51,7 @@ export function useStorage(): StorageService {
     async insertDeposit(deposit: Deposit) {
       const formattedDeposit = {
         ...deposit,
-        // members_emails: useful field for firebase to use on queries
+        // useful field for firebase to use on queries
         members_emails: deposit.members.map((member) => member.email),
       };
       await setDoc(
@@ -123,6 +124,9 @@ export function useAuth(): AuthService {
         deposits: [],
         email: user?.providerData?.[0]?.email ?? 'unknown name',
       };
+    },
+    checkUserSession() {
+      return { onAuthStateChanged, getAuth };
     },
     logOut() {
       // TODO

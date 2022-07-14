@@ -20,7 +20,7 @@ function DepositDetail() {
       if (!data) return;
       setDeposit(data);
     });
-  }, []);
+  }, [loggedInUser]);
 
   const handleExpenseChecked = async (item: Expense, isChecked) => {
     if (!deposit) return;

@@ -26,7 +26,7 @@ function DepositsSummary() {
       .catch((err) => {
         console.log('ERROR useEffect getDeposits', err);
       });
-  }, []);
+  }, [loggedInUser]);
   return (
     <div className="h-screen px-8 overflow-scroll">
       {deposits.length ? (
