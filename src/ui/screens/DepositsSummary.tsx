@@ -24,13 +24,15 @@ function DepositsSummary() {
   };
 
   useEffect(() => {
-    getDeposits()
-      .then((deposits) => {
-        setDeposits(deposits);
-      })
-      .catch((err) => {
-        console.error('ERROR useEffect getDeposits', err);
-      });
+    if (loggedInUser) {
+      getDeposits()
+        .then((deposits) => {
+          setDeposits(deposits);
+        })
+        .catch((err) => {
+          console.error('ERROR useEffect getDeposits', err);
+        });
+    }
   }, [loggedInUser]);
   return (
     <div className="h-screen px-8 overflow-scroll">

@@ -19,5 +19,13 @@ export function useAuthenticate() {
       console.error('ERROR google login', err);
     }
   }
-  return { login, googleLogin };
+  async function logOut() {
+    try {
+      const { logOut } = useAuth();
+      await logOut();
+    } catch (err) {
+      console.error('ERROR logout', err);
+    }
+  }
+  return { login, googleLogin, logOut };
 }

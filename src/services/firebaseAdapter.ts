@@ -128,8 +128,9 @@ export function useAuth(): AuthService {
     checkUserSession() {
       return { onAuthStateChanged, getAuth };
     },
-    logOut() {
-      // TODO
+    async logOut() {
+      const auth = getAuth();
+      await signOut(auth);
     },
   };
 }
