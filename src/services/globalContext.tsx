@@ -12,12 +12,17 @@ export const useGlobalContext = () => useContext(GlobalContext);
 
 export const Provider: React.FC<Props> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [isPending, setIsPending] = useState(false);
 
   useEffect(() => {
+    setIsPending(true);
     const { checkUserSession } = useAuth();
     const auth = checkUserSession().getAuth();
     checkUserSession().onAuthStateChanged(auth, (user) => {
-      if (!user) return;
+      if (!user) {
+        setIsPending(false);
+        return;
+      }
       setUser({
         alias: user?.providerData?.[0]?.email ?? 'unknown name',
         id: user?.uid ?? 'unknown ID',
@@ -25,12 +30,15 @@ export const Provider: React.FC<Props> = ({ children }) => {
         deposits: [],
         email: user?.providerData?.[0]?.email ?? 'unknown name',
       });
+      setIsPending(false);
     });
   }, []);
 
   const value = {
     user,
+    isPending,
     updateUser: setUser,
+    setIsPending,
   };
 
   return (
