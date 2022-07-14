@@ -11,7 +11,6 @@ const GlobalContext = React.createContext<any>({});
 export const useGlobalContext = () => useContext(GlobalContext);
 
 export const Provider: React.FC<Props> = ({ children }) => {
-  // TODO: si hay cookie, persistir sesion de usuario en toda la app
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
