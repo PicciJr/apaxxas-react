@@ -61,11 +61,21 @@ function NewExpend() {
       setDeposit(deposit);
     });
   }, []);
+
+  const hasFormInvalidFields = () => {
+    return !payer || !debtor || !cost || !subject;
+  };
+
   return (
     <div className="h-screen px-4 py-2 overflow-scroll">
       <div className="flex flex-col space-y-3">
         <label>Coste asociado</label>
-        <ATextInput placeholder="$" width="30%" onInputHandler={setCost} />
+        <ATextInput
+          placeholder="$"
+          width="30%"
+          onInputHandler={setCost}
+          type="number"
+        />
         {deposit?.members.length && (
           <>
             <label>Pagador</label>
@@ -90,6 +100,7 @@ function NewExpend() {
           color="purple"
           text="Añadir nuevo gasto"
           clickHandler={addNewExpenseToDeposit}
+          disabled={hasFormInvalidFields()}
         />
       </div>
     </div>

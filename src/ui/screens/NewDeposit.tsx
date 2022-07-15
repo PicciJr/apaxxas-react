@@ -1,4 +1,3 @@
-import { Box } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
 import AButton from '../components/AButton';
@@ -62,54 +61,68 @@ export default function NewDepositScreen() {
     setDepositPayer(users?.find((user) => user.name === payer) || null);
   };
 
+  const hasFormInvalidFields = () => {
+    return (
+      !depositPayer ||
+      !depositDebtor ||
+      !depositTitle ||
+      !expenseAmount ||
+      !expenseSubject
+    );
+  };
+
   return (
     <div className="h-screen px-4 py-2 overflow-scroll">
       <div className="flex flex-col">
-        <p className="mb-2">Nombre deposito</p>
-        <ATextInput
-          placeholder="#deposito-conejos"
-          width="150"
-          onInputHandler={setDepositTitle}
-        />
+        <div className="flex items-center mb-3 space-x-3">
+          <span>Nombre</span>
+          <ATextInput
+            placeholder="#deposito-conejos"
+            width="150"
+            onInputHandler={setDepositTitle}
+          />
+        </div>
         <div className="flex items-center">
-          <Box my={2}>
+          <div className="my-3">
             {users && (
               <ASelectInputGroup
                 options={users.map((user) => user.name)}
                 onSelectHandler={handleDepositDebtorSelected}
+                placeholder="¿Quién debe?"
               />
             )}
-          </Box>
-          <p className="pl-4">le debe a</p>
+          </div>
+          <p className="pl-4 font-bold text-apxred-500">le debe a</p>
         </div>
         {users && (
           <ASelectInputGroup
             options={users.map((user) => user.name)}
             onSelectHandler={handleDepositPayerSelected}
+            placeholder="¿Quién ha pagado?"
           />
         )}
-        <div className="flex space-y-1">
+        <div className="flex my-3">
           <p className="pr-2 my-2">la cantidad de</p>
           <ATextInput
             placeholder="$"
-            htmlSize={8}
+            width="50%"
+            type="number"
             onInputHandler={setExpenseAmount}
           />
         </div>
-        <div className="flex space-y-1">
-          <p className="pr-2 my-2">por concepto de</p>
+        <div className="flex items-center mb-12">
+          <p className="pr-2">por concepto de</p>
           <ATextInput
             placeholder="Compras mercadona..."
             onInputHandler={setExpenseSubject}
           />
         </div>
-        <div className="w-40 my-2">
-          <AButton
-            color="purple"
-            text="Crear depósito"
-            clickHandler={createNewDeposit}
-          />
-        </div>
+        <AButton
+          color="purple"
+          text="Crear depósito"
+          clickHandler={createNewDeposit}
+          disabled={hasFormInvalidFields()}
+        />
       </div>
     </div>
   );
