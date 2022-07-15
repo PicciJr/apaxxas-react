@@ -77,7 +77,7 @@ export default function NewDepositScreen() {
         <div className="flex items-center mb-3 space-x-3">
           <span>Nombre</span>
           <ATextInput
-            placeholder="#deposito-conejos"
+            placeholder="deposito-conejos"
             width="150"
             onInputHandler={setDepositTitle}
           />
