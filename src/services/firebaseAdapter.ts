@@ -27,12 +27,12 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyAXYIZc9Hc3ObbvsLdZzBZPLxuTnuF3Vnc',
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: 'apaxxas-v2.firebaseapp.com',
   projectId: 'apaxxas-v2',
   storageBucket: 'apaxxas-v2.appspot.com',
-  messagingSenderId: '934835627511',
-  appId: '1:934835627511:web:99f58cac72c1522ce5faf2',
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
