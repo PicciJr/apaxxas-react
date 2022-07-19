@@ -77,12 +77,12 @@ export function calculateTotalBalance(
       !currentExpense.isSettled &&
       currentExpense.payer.email === loggedInUser.email
     )
-      return acc + currentExpense.total;
+      return parseFloat((acc + currentExpense.total).toFixed(2));
     if (
       !currentExpense.isSettled &&
       currentExpense.payer.email !== loggedInUser.email
     )
-      return acc - currentExpense.total;
+      return parseFloat((acc - currentExpense.total).toFixed(2));
     return acc;
   }, 0.0);
 }
