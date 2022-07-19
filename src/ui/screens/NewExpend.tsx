@@ -67,7 +67,7 @@ function NewExpend() {
   };
 
   return (
-    <div className="h-screen px-4 py-2 overflow-scroll">
+    <div className="px-4 pt-1 pb-24 overflow-scroll">
       <div className="flex flex-col space-y-3">
         <label>Coste asociado</label>
         <ATextInput

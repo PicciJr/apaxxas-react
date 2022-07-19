@@ -37,7 +37,7 @@ function DepositDetail() {
   };
 
   return (
-    <div className="h-screen px-4 py-2 overflow-scroll">
+    <div className="px-4 pt-1 pb-24 overflow-scroll">
       <div className="w-full text-white rounded-md bg-apxpurple-100">
         {deposit && (
           <ul className="px-2 py-4">

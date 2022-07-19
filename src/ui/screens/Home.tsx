@@ -37,7 +37,7 @@ export default function HomeScreen() {
   };
 
   return (
-    <div className="flex flex-col justify-center h-screen px-8 overflow-scroll">
+    <div className="flex flex-col justify-center px-8 pb-24 overflow-scroll">
       <Box mb={1}>
         <ATextInput placeholder="Email" onInputHandler={setEmail} />
       </Box>

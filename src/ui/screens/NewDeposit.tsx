@@ -72,7 +72,7 @@ export default function NewDepositScreen() {
   };
 
   return (
-    <div className="h-screen px-4 py-2 overflow-scroll">
+    <div className="px-4 pt-1 pb-24 overflow-scroll">
       <div className="flex flex-col">
         <div className="flex items-center mb-3 space-x-3">
           <span>Nombre</span>
