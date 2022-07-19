@@ -76,13 +76,17 @@ export function calculateTotalBalance(
     if (
       !currentExpense.isSettled &&
       currentExpense.payer.email === loggedInUser.email
-    )
-      return parseFloat((acc + currentExpense.total).toFixed(2));
+    ) {
+      acc += currentExpense.total / deposit.members.length;
+      return parseFloat(acc.toFixed(2));
+    }
     if (
       !currentExpense.isSettled &&
       currentExpense.payer.email !== loggedInUser.email
-    )
-      return parseFloat((acc - currentExpense.total).toFixed(2));
+    ) {
+      acc -= currentExpense.total / deposit.members.length;
+      return parseFloat(acc.toFixed(2));
+    }
     return acc;
   }, 0.0);
 }

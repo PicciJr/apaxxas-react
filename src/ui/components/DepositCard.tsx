@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useGetExpenses } from '../../application/getExpenses';
 
 import { FaHandshake, FaUserAlt, FaPlusCircle } from 'react-icons/fa';
 import { Deposit } from '../../domain/deposit';
@@ -19,37 +20,36 @@ function DepositCard({
     user
   );
 
+  const [uniqueExpenses, setUniqueExpenses] = useState<any>([]);
+
+  useEffect(() => {
+    const { getExpensesByUser } = useGetExpenses();
+    setUniqueExpenses(getExpensesByUser(expenses));
+  }, []);
+
   return (
     <div className={`rounded-md bg-apxpurple-100 w-full text-white`}>
       <p className="font-bold text-center">#{title}</p>
       <div className="px-4 mb-4">
-        {expenses.length ? (
+        {uniqueExpenses.length ? (
           <>
-            {expenses.map((expense) => {
-              return expense.debtors.map((debtor) => {
-                if (debtor.email !== user.email)
-                  return (
-                    <li
-                      className={`my-2 text-white list-none ${
-                        expense.isSettled && 'text-gray-300 line-through'
-                      }`}
-                      key={debtor.id}>
-                      <span className="font-bold">{debtor.alias}</span> me debe{' '}
-                      {expense.total}$
-                    </li>
-                  );
+            {uniqueExpenses.map((expense) => {
+              if (user.email !== expense.email)
                 return (
-                  <li
-                    className={`my-2 text-white list-none ${
-                      expense.isSettled && 'text-gray-300 line-through'
-                    }`}
-                    key={debtor.id}>
-                    <span className="font-bold">{debtor.alias} (Yo)</span> debe{' '}
-                    {expense.total}$ a{' '}
-                    <span className="font-bold">{expense.payer.alias}</span>
+                  <li className="my-2 text-white list-none" key={expense.id}>
+                    <span className="font-bold">{expense.alias}</span> me debe{' '}
+                    {expense.total}$
                   </li>
                 );
-              });
+              return (
+                <li className="my-2 text-white list-none" key={expense.id}>
+                  <span className="font-bold text-apxred-500">
+                    {expense.alias} (Yo)
+                  </span>{' '}
+                  debe {expense.total}$ a{' '}
+                  <span className="font-bold0">{expense.payer.alias}</span>
+                </li>
+              );
             })}
             <div className="flex mt-8 space-x-2">
               <p>Balance actual:</p>

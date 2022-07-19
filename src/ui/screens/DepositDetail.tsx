@@ -45,7 +45,7 @@ function DepositDetail() {
             <>
               {deposit.expenses.map((expense) => {
                 return expense.debtors.map((debtor) => {
-                  if (debtor.id !== loggedInUser.id)
+                  if (debtor.email !== loggedInUser.email)
                     return (
                       <Stack className="mb-4" key={expense.id}>
                         <ACheckbox
@@ -53,7 +53,11 @@ function DepositDetail() {
                           handleCheck={handleExpenseChecked}>
                           <li>
                             <span className="font-bold">{debtor.alias}</span> me
-                            debe {expense.total}$
+                            debe{' '}
+                            {(expense.total / deposit.members.length).toFixed(
+                              2
+                            )}
+                            $
                             <ul className="px-8 list-disc">
                               <li>
                                 <span className="italic">
@@ -72,8 +76,12 @@ function DepositDetail() {
                         item={expense}
                         handleCheck={handleExpenseChecked}>
                         <li>
-                          <span className="font-bold">{debtor.alias} (Yo)</span>{' '}
-                          debe {expense.total}$ a{' '}
+                          <span className="font-bold text-apxred-500">
+                            {debtor.alias} (Yo)
+                          </span>{' '}
+                          debe{' '}
+                          {(expense.total / deposit.members.length).toFixed(2)}$
+                          a{' '}
                           <span className="font-bold">
                             {expense.payer.alias}
                           </span>
