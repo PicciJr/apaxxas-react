@@ -13,7 +13,8 @@ export function useCreateExpense() {
         debtors,
         payer,
         isSettled,
-        subject
+        subject,
+        false // TODO: dinamizar
       );
       const { insertExpense } = useStorage();
       await insertExpense(expense);

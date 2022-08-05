@@ -18,9 +18,21 @@ function DepositDetail() {
     const { getDeposit } = useGetDeposit();
     getDeposit(params?.id).then((data) => {
       if (!data) return;
-      setDeposit(data);
+      const depositWithExpensesSorted = sortDepositExpenses(data);
+      setDeposit(depositWithExpensesSorted);
     });
   }, [loggedInUser]);
+
+  const sortDepositExpenses = (deposit) => {
+    const sortedExpenses = deposit.expenses.sort((expenseA, expenseB) => {
+      if (expenseA.isSettled) return -1;
+      else if (expenseB.isSettled) return 1;
+    });
+    return {
+      ...deposit,
+      sortedExpenses,
+    };
+  };
 
   const handleExpenseChecked = async (item: Expense, isChecked) => {
     if (!deposit) return;
