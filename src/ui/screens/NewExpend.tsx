@@ -68,10 +68,13 @@ function NewExpend() {
 
   return (
     <div className="px-4 pt-1 pb-24 overflow-scroll">
+      <h2 className="mb-3 text-2xl font-bold text-center text-gray-500">
+        Añadir nuevo gasto
+      </h2>
       <div className="flex flex-col space-y-3">
         <label>Coste asociado</label>
         <ATextInput
-          placeholder="$"
+          placeholder="€"
           width="30%"
           onInputHandler={setCost}
           type="number"

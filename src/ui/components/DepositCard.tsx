@@ -36,7 +36,7 @@ function DepositCard({
                 return (
                   <li className="my-2 text-white list-none" key={expense.id}>
                     <span className="font-bold">{expense.alias}</span> me debe{' '}
-                    {expense.total}$
+                    {expense.total}€
                   </li>
                 );
               return (
@@ -44,7 +44,7 @@ function DepositCard({
                   <span className="font-bold text-apxred-500">
                     {expense.alias} (Yo)
                   </span>{' '}
-                  debe {expense.total}$ a{' '}
+                  debe {expense.total}€ a{' '}
                   <span className="font-bold0">{expense.payer.alias}</span>
                 </li>
               );
@@ -56,7 +56,7 @@ function DepositCard({
                   (depositBalance > 0 && 'text-apxgreen-500') ||
                   (depositBalance < 0 && 'text-apxred-500')
                 } font-bold px-1`}>
-                {depositBalance}$
+                {depositBalance}€
               </p>
             </div>
           </>

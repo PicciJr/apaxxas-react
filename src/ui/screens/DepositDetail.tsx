@@ -8,7 +8,7 @@ import { useGlobalContext } from '../../services/globalContext';
 import { useUpdateExpense } from '../../application/updateExpense';
 import { useUpdateDeposit } from '../../application/updateDeposit';
 import ACheckbox from '../components/ACheckbox';
-import { FaHandshake, FaUserAlt, FaPlusCircle } from 'react-icons/fa';
+import { FaList, FaCommentDollar } from 'react-icons/fa';
 
 function DepositDetail() {
   const { user: loggedInUser } = useGlobalContext();
@@ -71,13 +71,13 @@ function DepositDetail() {
                               expense.total /
                               depositWithPendingItems.members.length
                             ).toFixed(2)}
-                            $
+                            €
                             <ul className="px-8 list-disc">
                               <li>
                                 <span className="italic">
                                   {expense.subject}
                                 </span>
-                                : {expense.total}$
+                                : {expense.total}€
                               </li>
                             </ul>
                           </li>
@@ -98,14 +98,14 @@ function DepositDetail() {
                             expense.total /
                             depositWithPendingItems.members.length
                           ).toFixed(2)}
-                          $ a{' '}
+                          € a{' '}
                           <span className="font-bold">
                             {expense.payer.alias}
                           </span>
                           <ul className="px-8 list-disc">
                             <li>
                               <span className="italic">{expense.subject}</span>:{' '}
-                              {expense.total}$
+                              {expense.total}€
                             </li>
                           </ul>
                         </li>
@@ -118,10 +118,12 @@ function DepositDetail() {
             <div className={`w-full bg-apxpurple-500 rounded-b-md py-2`}>
               <div className="flex justify-between px-4">
                 <Link to={`/nuevo-gasto/${deposit.id}`}>
-                  <FaPlusCircle size={24} color="white" />
+                  <FaCommentDollar size={24} color="white" />
                 </Link>
-                <FaHandshake size={24} color="white" />
-                <FaUserAlt size={24} color="white" />
+                {/** TODO */}
+                {/* <FaHandshake size={24} color="white" /> */}
+                {/** TODO: acceder a un listado de todos los gatos */}
+                <FaList size={24} color="white" />
               </div>
             </div>
           </>

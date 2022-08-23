@@ -73,6 +73,9 @@ export default function NewDepositScreen() {
 
   return (
     <div className="px-4 pt-1 pb-24 overflow-scroll">
+      <h2 className="mb-3 text-2xl font-bold text-center text-gray-500">
+        Crear nuevo deposito
+      </h2>
       <div className="flex flex-col">
         <div className="flex items-center mb-3 space-x-3">
           <span>Nombre</span>
@@ -104,7 +107,7 @@ export default function NewDepositScreen() {
         <div className="flex my-3">
           <p className="pr-2 my-2">la cantidad de</p>
           <ATextInput
-            placeholder="$"
+            placeholder="€"
             width="50%"
             type="number"
             onInputHandler={setExpenseAmount}
