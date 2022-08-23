@@ -3,36 +3,34 @@ import { Stack } from '@chakra-ui/react';
 import { Deposit } from '../../domain/deposit';
 import { Expense } from '../../domain/expense';
 import { useGetDeposit } from '../../application/getDeposit';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useGlobalContext } from '../../services/globalContext';
 import { useUpdateExpense } from '../../application/updateExpense';
 import { useUpdateDeposit } from '../../application/updateDeposit';
 import ACheckbox from '../components/ACheckbox';
+import { FaHandshake, FaUserAlt, FaPlusCircle } from 'react-icons/fa';
 
 function DepositDetail() {
   const { user: loggedInUser } = useGlobalContext();
   const [deposit, setDeposit] = useState<Deposit | null>(null);
+  const [depositWithPendingItems, setDepositWithPendingItems] =
+    useState<Deposit | null>(null);
   const params = useParams();
   useEffect(() => {
     if (!params.id) return;
     const { getDeposit } = useGetDeposit();
     getDeposit(params?.id).then((data) => {
       if (!data) return;
-      const depositWithExpensesSorted = sortDepositExpenses(data);
-      setDeposit(depositWithExpensesSorted);
+      setDeposit(data);
+      const { expenses, id, members, title } = data;
+      setDepositWithPendingItems({
+        id,
+        title,
+        members,
+        expenses: expenses.filter((expense) => !expense.isSettled),
+      });
     });
   }, [loggedInUser]);
-
-  const sortDepositExpenses = (deposit) => {
-    const sortedExpenses = deposit.expenses.sort((expenseA, expenseB) => {
-      if (expenseA.isSettled) return -1;
-      else if (expenseB.isSettled) return 1;
-    });
-    return {
-      ...deposit,
-      sortedExpenses,
-    };
-  };
 
   const handleExpenseChecked = async (item: Expense, isChecked) => {
     if (!deposit) return;
@@ -51,11 +49,14 @@ function DepositDetail() {
   return (
     <div className="px-4 pt-1 pb-24 overflow-scroll">
       <div className="w-full text-white rounded-md bg-apxpurple-100">
-        {deposit && (
-          <ul className="px-2 py-4">
-            <p className="mb-4 font-bold text-center">#{deposit.title}</p>
-            <>
-              {deposit.expenses.map((expense) => {
+        {deposit && depositWithPendingItems && (
+          <>
+            <ul className="px-2 py-4">
+              <p className="mb-4 font-bold text-center">
+                #{depositWithPendingItems.title}
+              </p>
+
+              {depositWithPendingItems.expenses.map((expense) => {
                 return expense.debtors.map((debtor) => {
                   if (debtor.email !== loggedInUser.email)
                     return (
@@ -66,9 +67,10 @@ function DepositDetail() {
                           <li>
                             <span className="font-bold">{debtor.alias}</span> me
                             debe{' '}
-                            {(expense.total / deposit.members.length).toFixed(
-                              2
-                            )}
+                            {(
+                              expense.total /
+                              depositWithPendingItems.members.length
+                            ).toFixed(2)}
                             $
                             <ul className="px-8 list-disc">
                               <li>
@@ -92,8 +94,11 @@ function DepositDetail() {
                             {debtor.alias} (Yo)
                           </span>{' '}
                           debe{' '}
-                          {(expense.total / deposit.members.length).toFixed(2)}$
-                          a{' '}
+                          {(
+                            expense.total /
+                            depositWithPendingItems.members.length
+                          ).toFixed(2)}
+                          $ a{' '}
                           <span className="font-bold">
                             {expense.payer.alias}
                           </span>
@@ -109,8 +114,17 @@ function DepositDetail() {
                   );
                 });
               })}
-            </>
-          </ul>
+            </ul>
+            <div className={`w-full bg-apxpurple-500 rounded-b-md py-2`}>
+              <div className="flex justify-between px-4">
+                <Link to={`/nuevo-gasto/${deposit.id}`}>
+                  <FaPlusCircle size={24} color="white" />
+                </Link>
+                <FaHandshake size={24} color="white" />
+                <FaUserAlt size={24} color="white" />
+              </div>
+            </div>
+          </>
         )}
       </div>
     </div>

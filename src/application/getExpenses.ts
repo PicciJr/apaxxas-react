@@ -7,7 +7,10 @@ export function useGetExpenses() {
       debtors.forEach((debtor) => {
         const { id, email, alias } = debtor;
         const totalForDebtor = total / (debtors.length + 1);
-        if (!uniqueExpenses.some((item) => item.id === debtor.id) && !isSettled)
+        const hasExpenseAlreadyBeenAdded = uniqueExpenses.some(
+          (item) => item?.id === debtor?.id ?? false
+        );
+        if (!hasExpenseAlreadyBeenAdded && !isSettled)
           uniqueExpenses.push({
             id,
             email,
@@ -16,9 +19,6 @@ export function useGetExpenses() {
             subject,
             total: totalForDebtor,
           });
-        else if (uniqueExpenses.length)
-          uniqueExpenses.find((item) => item.id === debtor.id).total +=
-            totalForDebtor;
       });
     });
     uniqueExpenses.forEach(

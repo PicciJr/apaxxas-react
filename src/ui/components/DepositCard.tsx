@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useGetExpenses } from '../../application/getExpenses';
 
-import { FaHandshake, FaUserAlt, FaPlusCircle } from 'react-icons/fa';
 import { Deposit } from '../../domain/deposit';
 import { useGlobalContext } from '../../services/globalContext';
 import { calculateTotalBalance } from '../../domain/deposit';
-import { Link } from 'react-router-dom';
 
 function DepositCard({
   title = 'deposito-prueba',
@@ -28,7 +26,7 @@ function DepositCard({
   }, []);
 
   return (
-    <div className={`rounded-md bg-apxpurple-100 w-full text-white`}>
+    <div className={`rounded-md bg-apxpurple-100 w-full text-white pb-2`}>
       <p className="font-bold text-center">#{title}</p>
       <div className="px-4 mb-4">
         {uniqueExpenses.length ? (
@@ -67,15 +65,6 @@ function DepositCard({
             No hay cuentas pendientes pendientes
           </div>
         )}
-      </div>
-      <div className={`w-full bg-apxpurple-500 rounded-b-md py-2`}>
-        <div className="flex justify-between px-4">
-          <Link to={`/nuevo-gasto/${id}`}>
-            <FaPlusCircle size={24} color="white" />
-          </Link>
-          <FaHandshake size={24} color="white" />
-          <FaUserAlt size={24} color="white" />
-        </div>
       </div>
     </div>
   );
