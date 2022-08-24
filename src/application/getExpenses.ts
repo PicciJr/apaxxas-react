@@ -20,7 +20,6 @@ export function useGetExpenses() {
             subject,
             total: totalForDebtor,
           });
-        // TODO: el calculo de totales por debtor en la card no esta bien si tengo mas de un gasto
         else {
           const debtorToUpdate = uniqueExpenses.findIndex(
             (item) => item.id === id
