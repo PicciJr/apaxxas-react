@@ -3,14 +3,15 @@ import { Expense } from '../domain/expense';
 export function useGetExpenses() {
   function getExpensesByUser(expenses: Expense[]) {
     let uniqueExpenses: any[] = [];
-    expenses.forEach(({ debtors, total, isSettled, payer, subject }) => {
+    let unSettledExpenses = expenses.filter((expense) => !expense.isSettled);
+    unSettledExpenses.forEach(({ debtors, total, payer, subject }) => {
       debtors.forEach((debtor) => {
         const { id, email, alias } = debtor;
         const totalForDebtor = total / (debtors.length + 1);
-        const hasExpenseAlreadyBeenAdded = uniqueExpenses.some(
+        const hasDebtorAlreadyBeenAdded = uniqueExpenses.some(
           (item) => item?.id === debtor?.id ?? false
         );
-        if (!hasExpenseAlreadyBeenAdded && !isSettled)
+        if (!hasDebtorAlreadyBeenAdded)
           uniqueExpenses.push({
             id,
             email,
@@ -19,6 +20,13 @@ export function useGetExpenses() {
             subject,
             total: totalForDebtor,
           });
+        // TODO: el calculo de totales por debtor en la card no esta bien si tengo mas de un gasto
+        else {
+          const debtorToUpdate = uniqueExpenses.findIndex(
+            (item) => item.id === id
+          );
+          uniqueExpenses[debtorToUpdate].total += totalForDebtor;
+        }
       });
     });
     uniqueExpenses.forEach(
