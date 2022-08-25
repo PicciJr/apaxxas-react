@@ -120,10 +120,12 @@ function DepositDetail() {
                 <Link to={`/nuevo-gasto/${deposit.id}`}>
                   <FaCommentDollar size={24} color="white" />
                 </Link>
-                {/** TODO */}
+                {/** TODO: ajustar todos los gastos pendientes de un click */}
                 {/* <FaHandshake size={24} color="white" /> */}
                 {/** TODO: acceder a un listado de todos los gatos */}
-                <FaList size={24} color="white" />
+                <Link to={`/historial/${deposit.id}`}>
+                  <FaList size={24} color="white" />
+                </Link>
               </div>
             </div>
           </>

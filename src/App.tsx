@@ -6,6 +6,7 @@ import DepositsSummary from './ui/screens/DepositsSummary';
 import BottomTabsNavigator from './ui/components/BottomTabsNavigator';
 import DepositDetail from './ui/screens/DepositDetail';
 import NewExpend from './ui/screens/NewExpend';
+import ExpensesSummary from './ui/screens/ExpensesSummary';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/nuevo-deposito" element={<NewDepositScreen />} />
           <Route path="/deposito/:id" element={<DepositDetail />} />
           <Route path="/resumen" element={<DepositsSummary />} />
+          <Route path="/historial/:depositId" element={<ExpensesSummary />} />
           <Route path="/" element={<HomeScreen />} />
         </Routes>
       </BrowserRouter>
