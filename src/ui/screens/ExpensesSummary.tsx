@@ -13,8 +13,25 @@ function ExpensesSummary() {
     const { getDeposit } = useGetDeposit();
     getDeposit(params.depositId).then((deposit: Deposit | any) => {
       const expenses = deposit.expenses;
-      setExpenses(expenses);
-      // TODO: sort expenses by date (createdAt)
+      setExpenses(
+        expenses.sort((expenseA, expenseB) => {
+          if (
+            typeof expenseA.createdAt === 'undefined' &&
+            typeof expenseB.createdAt !== 'undefined'
+          )
+            return 1;
+          if (
+            typeof expenseA.createdAt !== 'undefined' &&
+            typeof expenseB.createdAt === 'undefined'
+          )
+            return -1;
+          if (
+            typeof expenseA.createdAt !== 'undefined' &&
+            typeof expenseB.createdAt !== 'undefined'
+          )
+            return -(expenseA.createdAt - expenseB.createdAt);
+        })
+      );
     });
   }, []);
 
