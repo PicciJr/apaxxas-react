@@ -14,7 +14,8 @@ export function useCreateExpense() {
         payer,
         isSettled,
         subject,
-        false // TODO: dinamizar
+        false, // TODO: dinamizar
+        Date.now()
       );
       const { insertExpense } = useStorage();
       await insertExpense(expense);

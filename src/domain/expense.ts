@@ -8,6 +8,7 @@ export type Expense = {
   isSettled: boolean;
   subject: string;
   isSharedWithPayer: boolean;
+  createdAt: number;
 };
 export function createExpense(
   id: string,
@@ -16,7 +17,8 @@ export function createExpense(
   payer: User,
   isSettled: boolean,
   subject: string,
-  isSharedWithPayer: boolean
+  isSharedWithPayer: boolean,
+  createdAt: number
 ): Expense {
   return {
     id,
@@ -26,5 +28,6 @@ export function createExpense(
     isSettled,
     subject,
     isSharedWithPayer,
+    createdAt,
   };
 }

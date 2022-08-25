@@ -14,6 +14,7 @@ function ExpensesSummary() {
     getDeposit(params.depositId).then((deposit: Deposit | any) => {
       const expenses = deposit.expenses;
       setExpenses(expenses);
+      // TODO: sort expenses by date (createdAt)
     });
   }, []);
 
@@ -26,9 +27,14 @@ function ExpensesSummary() {
         <div className="w-full p-2 text-white rounded-md bg-apxpurple-100">
           <ul className="px-4 list-disc">
             {expenses.map((expense) => (
-              <li className="flex mb-3 space-x-3">
+              <li className="flex items-baseline mb-3 space-x-1">
                 <span className="italic">- {expense.subject}:</span>
                 <span className="font-bold">{expense.total}€</span>
+                {expense.createdAt && (
+                  <span className="px-2 text-xs text-gray-600">
+                    {new Date(expense?.createdAt).toLocaleDateString()}
+                  </span>
+                )}
               </li>
             ))}
           </ul>
