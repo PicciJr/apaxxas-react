@@ -38,7 +38,7 @@ export default function HomeScreen() {
   };
 
   return (
-    <div className="absolute flex flex-col justify-center px-8 pb-24 overflow-scroll transform -translate-x-1/2 translate-y-1/2 left-1/2">
+    <div className="absolute flex flex-col justify-center px-8 pb-24 overflow-scroll transform -translate-x-1/2 translate-y-1/2 left-1/2 sm:overflow-hidden">
       {isPending && (
         <Spinner
           thickness="4px"

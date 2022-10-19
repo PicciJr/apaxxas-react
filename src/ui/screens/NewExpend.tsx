@@ -67,7 +67,7 @@ function NewExpend() {
   };
 
   return (
-    <div className="px-4 pt-1 pb-24 overflow-scroll">
+    <div className="px-4 pt-1 pb-24 overflow-scroll sm:overflow-hidden">
       <h2 className="mb-3 text-2xl font-bold text-center text-gray-500">
         Añadir nuevo gasto
       </h2>

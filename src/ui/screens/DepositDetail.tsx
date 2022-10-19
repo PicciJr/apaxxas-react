@@ -47,7 +47,7 @@ function DepositDetail() {
   };
 
   return (
-    <div className="px-4 pt-1 pb-24 overflow-scroll">
+    <div className="px-4 pt-1 pb-24 overflow-scroll sm:overflow-hidden">
       <div className="w-full text-white rounded-md bg-apxpurple-100">
         {deposit && depositWithPendingItems && (
           <>

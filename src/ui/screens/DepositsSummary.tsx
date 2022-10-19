@@ -35,7 +35,7 @@ function DepositsSummary() {
     }
   }, [loggedInUser]);
   return (
-    <div className="px-8 pb-24 overflow-scroll">
+    <div className="px-8 pb-24 overflow-scroll sm:overflow-hidden">
       {isPending ? (
         <div className="flex flex-col items-center space-y-3">
           <span>Obteniendo depositos...</span>
