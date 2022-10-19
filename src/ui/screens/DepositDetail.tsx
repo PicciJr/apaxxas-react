@@ -27,10 +27,32 @@ function DepositDetail() {
         id,
         title,
         members,
-        expenses: expenses.filter((expense) => !expense.isSettled),
+        expenses: sortedExpensesByDate(expenses).filter(
+          (expense) => !expense.isSettled
+        ),
       });
     });
   }, [loggedInUser]);
+
+  const sortedExpensesByDate = (expenses) => {
+    return expenses.sort((expenseA, expenseB) => {
+      if (
+        typeof expenseA.createdAt === 'undefined' &&
+        typeof expenseB.createdAt !== 'undefined'
+      )
+        return 1;
+      if (
+        typeof expenseA.createdAt !== 'undefined' &&
+        typeof expenseB.createdAt === 'undefined'
+      )
+        return -1;
+      if (
+        typeof expenseA.createdAt !== 'undefined' &&
+        typeof expenseB.createdAt !== 'undefined'
+      )
+        return -(expenseA.createdAt - expenseB.createdAt);
+    });
+  };
 
   const handleExpenseChecked = async (item: Expense, isChecked) => {
     if (!deposit) return;
