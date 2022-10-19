@@ -5,15 +5,16 @@ function ASelectInputGroup({
   options,
   onSelectHandler,
   placeholder = 'Selecciona una opción',
+  defaultValue = '',
 }) {
   const selectHandler = (event) => {
     onSelectHandler(event.target.value);
   };
   return (
-    <Select placeholder={placeholder} onChange={selectHandler}>
+    <Select onChange={selectHandler}>
       {options.map((option) => (
         <option value={option} key={option}>
-          {option}
+          {defaultValue ? defaultValue : option}
         </option>
       ))}
     </Select>

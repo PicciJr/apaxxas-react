@@ -59,8 +59,21 @@ function NewExpend() {
     const { getDeposit } = useGetDeposit();
     getDeposit(params.depositId).then((deposit) => {
       setDeposit(deposit);
+      if (loggedInUser) setDefaultMembersToExpend(deposit);
     });
   }, []);
+
+  const setDefaultMembersToExpend = (deposit) => {
+    const foundPayer = deposit?.members.find(
+      (member) => member.email === loggedInUser.email
+    );
+    if (foundPayer) setPayer(foundPayer);
+
+    const foundDebtor = deposit?.members.filter(
+      (member) => member.email !== foundPayer?.email
+    );
+    if (foundDebtor) setDebtor(foundDebtor[0]);
+  };
 
   const hasFormInvalidFields = () => {
     return !payer || !debtor || !cost || !subject;
@@ -85,11 +98,13 @@ function NewExpend() {
             <ASelectInputGroup
               options={deposit?.members.map((member) => member.name)}
               onSelectHandler={handlePayerSelected}
+              defaultValue={payer?.name}
             />
             <label>Deudor</label>
             <ASelectInputGroup
               options={deposit?.members.map((member) => member.name)}
               onSelectHandler={handleDebtorSelected}
+              defaultValue={debtor?.name}
             />
           </>
         )}
