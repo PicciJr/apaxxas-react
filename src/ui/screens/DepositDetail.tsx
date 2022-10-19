@@ -113,6 +113,13 @@ function DepositDetail() {
                             <li>
                               <span className="italic">{expense.subject}</span>:{' '}
                               {expense.total}€
+                              {expense.createdAt && (
+                                <span className="px-2 text-xs text-gray-600">
+                                  {new Date(
+                                    expense?.createdAt
+                                  ).toLocaleDateString()}
+                                </span>
+                              )}
                             </li>
                           </ul>
                         </li>
