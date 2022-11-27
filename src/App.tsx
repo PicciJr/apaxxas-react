@@ -15,7 +15,7 @@ function App() {
         <BottomTabsNavigator />
         <Routes>
           <Route path="/nuevo-gasto/:depositId" element={<NewExpend />} />
-          <Route path="/nuevo-deposito" element={<NewDepositScreen />} />
+          {/* <Route path="/nuevo-deposito" element={<NewDepositScreen />} />{' '} */}
           <Route path="/deposito/:id" element={<DepositDetail />} />
           <Route path="/resumen" element={<DepositsSummary />} />
           <Route path="/historial/:depositId" element={<ExpensesSummary />} />

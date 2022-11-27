@@ -73,11 +73,17 @@ function DepositDetail() {
       <div className="w-full text-white rounded-md bg-apxpurple-100">
         {deposit && depositWithPendingItems && (
           <>
-            <ul className="px-2 py-4">
-              <p className="mb-4 font-bold text-center">
+            <div className="relative">
+              <Link
+                className="absolute top-0 right-0 p-2 m-1 rounded-full ring-1 ring-white"
+                to={`/nuevo-gasto/${deposit.id}`}>
+                <FaCommentDollar size={24} color="white" />
+              </Link>
+              <p className="pt-4 mb-2 font-bold text-center">
                 #{depositWithPendingItems.title}
               </p>
-
+            </div>
+            <ul className="px-2 py-4">
               {depositWithPendingItems.expenses.map((expense) => {
                 return expense.debtors.map((debtor) => {
                   if (debtor.email !== loggedInUser.email)
@@ -153,9 +159,6 @@ function DepositDetail() {
             </ul>
             <div className={`w-full bg-apxpurple-500 rounded-b-md py-2`}>
               <div className="flex justify-between px-4">
-                <Link to={`/nuevo-gasto/${deposit.id}`}>
-                  <FaCommentDollar size={24} color="white" />
-                </Link>
                 {/** TODO: ajustar todos los gastos pendientes de un click */}
                 {/* <FaHandshake size={24} color="white" /> */}
                 {/** TODO: acceder a un listado de todos los gatos */}

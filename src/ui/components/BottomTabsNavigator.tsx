@@ -41,11 +41,6 @@ export default function BottomTabsNavigator() {
           </NavLink>
         )}
         <NavLink
-          to="nuevo-deposito"
-          className={`${!user && 'pointer-events-none opacity-20'}`}>
-          <FaPlusCircle className="w-8 h-8 text-white" />
-        </NavLink>
-        <NavLink
           to="resumen"
           className={`${!user && 'pointer-events-none opacity-20'}`}>
           <FaPiggyBank className="w-8 h-8 text-white" />
